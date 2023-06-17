@@ -1,24 +1,30 @@
 #include <iostream>
+#include <iomanip>
+#include <cmath>
+//Iterar hasya que los  primerps 6 digitos sean estables
+//Hay que ir restando los valores, diferencia por valor absoluto
 using namespace std;
 
     double calcularPi(){
-        int sign = 1; // signo, el cual varia
-        int deno = 1; //denominador
-        int maxIter = 1000000; //max iteraciones, a corregir?
+        double signo = 1.0; // signo, el cual varia
         double pi = 0.0; // inicializo pi en 0.0
 
-        for (int i = 0; i < maxIter; i++){
-            pi = pi + sign * ( 1.0 / deno);
-            sign = sign * (-1); //cambio de signo
-            deno = deno + 2; // denominador aumento en dos, siempre impar
-        }
-    return pi * 4;// s. leib = pi/4
+        double decimales = 0.000001;
+
+        double i = 2.0; //suma a denominador
+        double denominador = 1.0; //denominador
+        double division = signo / denominador; // termino de divison
+            while(abs(4 * division) >= decimales){ //devuelve el valor absoluto
+                pi = pi + 4 * division;
+                signo = signo * -1.0;
+                denominador = denominador + i; // siempre impar
+                division = signo / denominador;
+            }
+    return pi;
     }
 
 int main(){
     double pi = calcularPi();
-    cout.precision(7);
-    cout<<"El valor de Pi es: " << pi << endl;
-
+    cout<< setprecision(6) << fixed << "El valor de Pi es: " << pi << endl;
     return 0;
 }
